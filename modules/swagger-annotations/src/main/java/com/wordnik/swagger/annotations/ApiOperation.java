@@ -1,5 +1,5 @@
 /**
- *  Copyright 2013 Wordnik, Inc.
+ *  Copyright 2015 Reverb Technologies, Inc.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -35,14 +35,19 @@ public @interface ApiOperation {
   /** long description of the operation */
   String notes() default "";
 
+  /**
+   * A list of tags for API documentation control. 
+   * Tags can be used for logical grouping of operations by resources or any other qualifier.
+   * 
+   * @since 1.5.2
+   */
+  String[] tags() default "";
+
   /** default response class from the operation */
   Class<?> response() default Void.class;
 
   /** if the response class is within a container, specify it here */
   String responseContainer() default "";
-
-  /** currently not implemented in readers, reserved for future use */
-  String tags() default "";
 
   /** the HTTP method, i.e GET, PUT, POST, DELETE, PATCH, OPTIONS */
   String httpMethod() default "";
@@ -63,5 +68,15 @@ public @interface ApiOperation {
   String protocols() default "";
 
   /** authorizations required by this Api */
-  String authorizations() default "";
+  //String authorizations() default "";
+
+  /** authorizations required by this Api */
+  Authorization[] authorizations() default @Authorization(value = "", type = "");
+
+  /**
+   * Allows an operation to be marked as hidden
+   */
+  boolean hidden() default false;
+
+  ResponseHeader[] responseHeaders() default @ResponseHeader(name = "", response = Void.class);
 }

@@ -1,5 +1,5 @@
 /**
- *  Copyright 2013 Wordnik, Inc.
+ *  Copyright 2015 Reverb Technologies, Inc.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -31,6 +31,13 @@ import java.lang.annotation.Target;
 public @interface ApiModelProperty {
   /** Provide a human readable synopsis of this property */
   String value() default "";
+
+  /**
+   * Allows overriding the name of the property
+   *
+   * @return the overridden property name
+   */
+  String name() default "";
 
   /**
    * If the values that can be set are restricted, they can be set here. In the form of a comma separated list
@@ -68,4 +75,19 @@ public @interface ApiModelProperty {
    * ordering, you should specify property order to keep models consistent across different VM implementations and versions.
    */
   int position() default 0;
+  
+  /**
+   * Allows a model property to be marked as hidden in the swagger model definition
+   */
+  boolean hidden() default false;
+
+  /**
+   * A sample value for the property
+   **/
+  String example() default "";
+
+  /**
+   * Allows a model property to be designated as read only
+   **/
+  boolean readOnly() default false;
 }
